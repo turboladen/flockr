@@ -11,6 +11,7 @@ describe User do
   it { should respond_to :email }
   it { should respond_to :password }
   it { should respond_to :password_confirmation }
+  it { should respond_to :authenticate }
   it { should be_valid }
 
   describe 'email' do
@@ -75,6 +76,23 @@ describe User do
       end
 
       it { should_not be_valid }
+    end
+
+    context 'when valid' do
+      it 'returns the user' do
+        subject.save
+        found_user = User.find_by(email: subject.email)
+        authenticated_user = found_user.authenticate(subject.password)
+        expect(subject).to eq authenticated_user
+      end
+    end
+
+    context 'when invalid' do
+      it 'returns false' do
+        subject.save
+        found_user = User.find_by(email: subject.email)
+        expect(found_user.authenticate('not valid')).to be_false
+      end
     end
   end
 
