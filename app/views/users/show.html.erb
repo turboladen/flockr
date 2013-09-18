@@ -1,10 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<h1><%= @user.username %></h1>
 
-<%= link_to 'Photos', user_photos_path(@user) %> |
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<hr/>
+
+<div class="row">
+  <div class="col-md-6">
+    <table class="table">
+      <tbody>
+      <tr>
+        <td><strong>Email:</strong></td>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <td><strong>Member since:</strong></td>
+        <td><%= time_ago_in_words(@user.created_at) %></td>
+      </tr>
+      </tbody>
+      <tr>
+        <td>
+          <%= link_to 'Photos', user_photos_path(@user), class: 'btn btn-primary' %>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+
+    <%= link_to edit_user_path(@user) do %>
+        <button type="button" class="btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-cog"></span>
+          Edit
+        </button>
+    <% end %>
+    <%= link_to users_path do %>
+        <button type="button" class="btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-backward"></span>
+          Back
+        </button>
+    <% end %>
+  </div>
+</div>
