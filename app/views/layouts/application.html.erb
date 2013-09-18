@@ -17,12 +17,24 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="#">Flockr</a>
+      <a class="navbar-brand" href="/">Flockr</a>
     </div>
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Users', users_path%></li>
+        <% if request.path == users_path %>
+            <li class="active"><%= link_to 'Users', users_path%></li>
+        <% else %>
+            <li><%= link_to 'Users', users_path%></li>
+        <% end %>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <% if request.path == sign_up_path %>
+            <li class="active"><%= link_to 'Sign Up', sign_up_path %></li>
+        <% else %>
+            <li><%= link_to 'Sign Up', sign_up_path %></li>
+        <% end %>
       </ul>
     </div>
   </div>
