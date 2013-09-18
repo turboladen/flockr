@@ -5,6 +5,8 @@ Flockr::Application.routes.draw do
     resources :photos
   end
 
+  get '/sign_up' => 'users#new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
