@@ -14,4 +14,13 @@ feature 'Authentication' do
       click_button 'Sign Up'
     }.to change { User.count }.by 1
   end
+
+  scenario 'Existing user signs in' do
+    visit '/sign_in'
+
+    expect(page).to have_title 'Sign in'
+    expect(page).to have_field 'Username'
+    expect(page).to have_field 'Password'
+    expect(page).to have_button 'Sign in'
+  end
 end
