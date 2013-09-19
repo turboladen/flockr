@@ -18,7 +18,6 @@ feature 'Authentication' do
   scenario 'Existing user signs in' do
     visit '/sign_in'
 
-    expect(page).to have_title 'Sign in'
     expect(page).to have_field 'Username'
     expect(page).to have_field 'Password'
     expect(page).to have_button 'Sign in'
