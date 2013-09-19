@@ -30,10 +30,14 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <% if request.path == sign_up_path %>
-            <li class="active"><%= link_to 'Sign Up', sign_up_path %></li>
+        <% if current_user %>
+            <li><%= link_to 'Sign Out', sign_out_path, method: :delete %></li>
         <% else %>
-            <li><%= link_to 'Sign Up', sign_up_path %></li>
+            <% if request.path == sign_up_path %>
+                <li class="active"><%= link_to 'Sign Up', sign_up_path %></li>
+            <% else %>
+                <li><%= link_to 'Sign Up', sign_up_path %></li>
+            <% end %>
         <% end %>
       </ul>
     </div>
