@@ -16,10 +16,16 @@ feature 'Authentication' do
   end
 
   scenario 'Existing user signs in' do
+    user = User.create!(email: 'guy@people.org', username: 'some_guy',
+      password: 'password', password_confirmation: 'password')
     visit '/sign_in'
 
-    expect(page).to have_field 'Username'
-    expect(page).to have_field 'Password'
-    expect(page).to have_button 'Sign in'
+    fill_in 'Username', with: user.username
+    fill_in 'Password', with: 'password'
+    click_button 'Sign In'
+
+    expect(page).to have_content user.username
+    expect(page).to have_link 'Sign Out', href: '/sign_out'
+    expect(page).to_not have_link 'Sign In', href: '/sign_in'
   end
 end
