@@ -19,6 +19,8 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe PhotosController do
+  fixtures :users
+  fixtures :photos
 
   # This should return the minimal set of attributes required to create a valid
   # Photo. As you add validations to Photo, be sure to
@@ -37,11 +39,10 @@ describe PhotosController do
   let(:valid_session) { {} }
 
   let(:user) do
-    User.create!(email: 'test@test.com', username: 'test', password: 'password',
-      password_confirmation: 'password')
+    users(:guy)
   end
 
-  let(:photo) { Photo.create! valid_attributes }
+  let(:photo) { photos(:one) }
 
   describe 'GET index' do
     it 'assigns all photos as @photos' do
@@ -154,8 +155,6 @@ describe PhotosController do
   end
 
   describe 'DELETE destroy' do
-    before { photo }
-
     it 'destroys the requested photo' do
       expect {
         delete :destroy, { id: photo.to_param, user_id: user.to_param },

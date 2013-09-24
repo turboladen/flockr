@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe SessionsController do
+  fixtures :users
+
   describe "GET 'new'" do
     it 'returns http success' do
       get :new
@@ -15,11 +17,7 @@ describe SessionsController do
 
   describe "POST 'create'" do
     let(:user) do
-      user = User.find_by username: 'tester'
-      return user if user
-
-      User.create!(email: 'test@email.com', username: 'tester',
-        password: 'password', password_confirmation: 'password')
+      users(:guy)
     end
 
     context 'when good password given' do
