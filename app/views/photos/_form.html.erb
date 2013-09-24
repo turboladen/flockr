@@ -16,6 +16,12 @@
     <%= f.text_field :file_name, class: 'form-control' %>
   </div>
 
+    <% if @photo.image? %>
+        <div class="form-group">
+          <%= image_tag(@photo.image_url(:thumb), class: 'img-thumbnail') if @photo.image? %>
+        </div>
+    <% end %>
+
   <div class="form-group">
     <%= f.file_field :image, class: 'form-control' %>
   </div>

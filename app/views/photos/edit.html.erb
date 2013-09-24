@@ -1,6 +1,10 @@
 <h1>Editing photo</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6">
+    <%= render 'form' %>
 
-<%= link_to 'Show', user_photo_path(@user, @photo) %> |
-<%= link_to 'Back', user_photos_path(@user) %>
+    <%= link_to 'Show', user_photo_path(@user, @photo) %> |
+    <%= link_to 'Back', user_photos_path(@user) %>
+  </div>
+</div>
