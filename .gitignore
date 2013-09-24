@@ -2,7 +2,6 @@
 *.sassc
 .sass-cache
 capybara-*.html
-.rspec
 /.bundle
 /vendor/bundle
 /log/*
@@ -14,3 +13,6 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+
+.idea/
+atlassian-ide-plugin.xml
