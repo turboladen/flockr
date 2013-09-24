@@ -1,21 +1,14 @@
 Flockr::Application.routes.draw do
   root 'home#index'
 
+  resources :sessions, only: %i[new create destroy]
+  get '/sign_up' => 'users#new'
+  get '/sign_in' => 'sessions#new'
+  delete '/sign_out' => 'sessions#destroy'
+
   resources :users do
     resources :photos
   end
-
-=begin
-  scope 'photos' do
-    get '/:username', to: 'photos#index', as: :photos
-    post '/:username', to: 'photos#create'
-    get '/:username/new', to: 'photos#new', as: :new_photo
-    get '/:username/:photo_id', to: 'photos#show', as: :photo
-    patch '/:username/:photo_id', to: 'photos#update'
-    get '/:username/:photo_id/edit', to: 'photos#edit', as: :edit_photo
-    delete '/:username/:photo_id', to: 'photos#update'
-  end
-=end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
