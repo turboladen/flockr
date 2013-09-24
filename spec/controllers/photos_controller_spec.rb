@@ -30,7 +30,10 @@ describe PhotosController do
   # PhotosController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  let(:user) { User.create!(email: 'test@test.com', username: 'test') }
+  let(:user) do
+    User.create!(email: 'test@test.com', username: 'test', password: 'password',
+      password_confirmation: 'password')
+  end
 
   describe 'GET index' do
     it 'assigns all photos as @photos' do
@@ -110,7 +113,7 @@ describe PhotosController do
         # specifies that the Photo created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Photo.any_instance.should_receive(:update).with({ file_name: 'MyString' })
+        Photo.any_instance.should_receive(:update).with({ 'file_name' => 'MyString' })
         put :update, { id: photo.to_param, photo: { file_name: 'MyString' }, user_id: user.to_param },
           valid_session
       end
