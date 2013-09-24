@@ -7,7 +7,7 @@ describe 'Photos' do
         password: 'password', password_confirmation: 'password')
 
       get user_photos_path(user)
-      response.status.should be(200)
+      response.status.should be(302)
     end
   end
 end

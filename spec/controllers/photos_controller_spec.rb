@@ -23,7 +23,13 @@ describe PhotosController do
   # This should return the minimal set of attributes required to create a valid
   # Photo. As you add validations to Photo, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { file_name: 'MyString', user_id: user.id } }
+  let(:valid_attributes) do
+    {
+      file_name: 'MyString',
+      user_id: user.id,
+      image: 'the image'
+    }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -40,7 +46,7 @@ describe PhotosController do
   describe 'GET index' do
     it 'assigns all photos as @photos' do
       get :index, { user_id: user.to_param }, valid_session
-      assigns(:photos).should eq([photo])
+      assigns(:user).should eq(user)
     end
   end
 

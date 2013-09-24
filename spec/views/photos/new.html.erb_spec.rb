@@ -19,7 +19,7 @@ describe 'photos/new' do
 
     assert_select 'form[action=?][method=?]', "#{user_photos_path(user_id: 1)}/", 'post' do
       assert_select 'input#photo_file_name[name=?]', 'photo[file_name]'
-      assert_select 'input#photo_path[name=?]', 'photo[path]'
+      assert_select 'input#photo_image[name=?]', 'photo[image]'
     end
   end
 end
