@@ -4,14 +4,14 @@ describe 'photos/show' do
   before(:each) do
     @photo = assign(:photo, stub_model(Photo,
       file_name: 'File Name',
-      path: 'Path'
+      image_url: 'http://test'
     ))
   end
 
   it 'renders attributes in <p>' do
     render
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
+
     rendered.should match(/File Name/)
-    rendered.should match(/Path/)
+    rendered.should match(%r[http://test])
   end
 end
