@@ -99,7 +99,7 @@ describe User do
 
   describe 'photos' do
     it 'can have many photos' do
-      2.times { subject.photos << Photo.new }
+      2.times { subject.photos << Photo.new(file_name: 'test') }
       expect(subject).to be_valid
       subject.save!
     end
@@ -107,7 +107,7 @@ describe User do
 
   describe '#destroy' do
     it 'destroys associated photos' do
-      photo = Photo.new
+      photo = Photo.new(file_name: 'test')
       subject.photos << photo
       subject.save
 
