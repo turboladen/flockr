@@ -5,7 +5,10 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = @user.photos
+    respond_to do |format|
+      format.html { redirect_to user_path(@user) }
+      format.json { render json: @user.photos }
+    end
   end
 
   # GET /photos/1
@@ -74,6 +77,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:file_name, :path, :user_id)
+      params.require(:photo).permit(:file_name, :path, :user_id, :image)
     end
 end
