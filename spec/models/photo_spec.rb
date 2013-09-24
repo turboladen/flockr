@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Photo do
   it { should respond_to :user }
   it { should respond_to :image }
+  it { should respond_to :comments }
 
   subject do
     Photo.new(file_name: 'test.file')

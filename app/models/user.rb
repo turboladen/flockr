@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
 
   has_many :photos, dependent: :destroy
+  has_many :comments
   has_secure_password
 
   validates :email, presence: true, uniqueness: true
