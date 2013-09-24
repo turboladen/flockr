@@ -35,9 +35,10 @@ describe PhotosController do
       password_confirmation: 'password')
   end
 
+  let(:photo) { Photo.create! valid_attributes }
+
   describe 'GET index' do
     it 'assigns all photos as @photos' do
-      photo = Photo.create! valid_attributes
       get :index, { user_id: user.to_param }, valid_session
       assigns(:photos).should eq([photo])
     end
@@ -45,7 +46,6 @@ describe PhotosController do
 
   describe 'GET show' do
     it 'assigns the requested photo as @photo' do
-      photo = Photo.create! valid_attributes
       get :show, { id: photo.to_param, user_id: user.to_param }, valid_session
       assigns(:photo).should eq(photo)
     end
@@ -60,7 +60,6 @@ describe PhotosController do
 
   describe 'GET edit' do
     it 'assigns the requested photo as @photo' do
-      photo = Photo.create! valid_attributes
       get :edit, { id: photo.to_param, user_id: user.to_param }, valid_session
       assigns(:photo).should eq(photo)
     end
@@ -108,7 +107,6 @@ describe PhotosController do
   describe 'PUT update' do
     describe 'with valid params' do
       it 'updates the requested photo' do
-        photo = Photo.create! valid_attributes
         # Assuming there are no other photos in the database, this
         # specifies that the Photo created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -119,14 +117,12 @@ describe PhotosController do
       end
 
       it 'assigns the requested photo as @photo' do
-        photo = Photo.create! valid_attributes
         put :update, { id: photo.to_param, photo: valid_attributes, user_id: user.to_param },
           valid_session
         assigns(:photo).should eq(photo)
       end
 
       it 'redirects to the photo' do
-        photo = Photo.create! valid_attributes
         put :update, { id: photo.to_param, photo: valid_attributes, user_id: user.to_param },
           valid_session
         response.should redirect_to(user_photo_path(user, photo))
@@ -134,29 +130,27 @@ describe PhotosController do
     end
 
     describe 'with invalid params' do
-      it 'assigns the photo as @photo' do
-        photo = Photo.create! valid_attributes
+      before do
         # Trigger the behavior that occurs when invalid params are submitted
         Photo.any_instance.stub(:save).and_return(false)
         put :update, { id: photo.to_param, photo: { file_name: 'invalid value' }, user_id: user.to_param },
           valid_session
+      end
+
+      it 'assigns the photo as @photo' do
         assigns(:photo).should eq(photo)
       end
 
       it "re-renders the 'edit' template" do
-        photo = Photo.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Photo.any_instance.stub(:save).and_return(false)
-        put :update, { id: photo.to_param, photo: { file_name: 'invalid value' }, user_id: user.to_param },
-          valid_session
         response.should render_template('edit')
       end
     end
   end
 
   describe 'DELETE destroy' do
+    before { photo }
+
     it 'destroys the requested photo' do
-      photo = Photo.create! valid_attributes
       expect {
         delete :destroy, { id: photo.to_param, user_id: user.to_param },
           valid_session
@@ -164,7 +158,6 @@ describe PhotosController do
     end
 
     it 'redirects to the photos list' do
-      photo = Photo.create! valid_attributes
       delete :destroy, { id: photo.to_param, user_id: user.to_param },
         valid_session
       response.should redirect_to(user_photos_url(user))
