@@ -21,6 +21,42 @@
 </div>
 
 <div class="row">
+  <div class="col-md-9">
+    <h3>Comments</h3>
+    <hr/>
+
+    <% if @photo.comments.empty? %>
+        <p>No comments.</p>
+    <% else %>
+        <table class="table">
+          <% @photo.comments.each do |comment| %>
+              <tr>
+                <td>
+                  <p class="text-muted">
+                    <%= time_ago_in_words(comment.updated_at) %> ago,
+                    <span class="label label-<%= %w[default primary success info].sample %>">
+                      <%= comment.user.username -%>
+                    </span>
+                    said:
+                  </p>
+
+                  <blockquote>
+                    <%= comment.body %>
+                  </blockquote>
+                </td>
+              </tr>
+          <% end %>
+        </table>
+    <% end %>
+    <p>
+      <%= link_to 'Leave a comment!', new_user_photo_comment_path(current_user, @photo) %>
+    </p>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
   <div class="col-md-12">
     <% if current_user == @user %>
         <%= link_to edit_user_photo_path(@user, @photo) do %>
