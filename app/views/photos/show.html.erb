@@ -21,7 +21,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-6 col-md-offset-3">
     <h3>Comments</h3>
     <hr/>
 
@@ -44,6 +44,12 @@
                     <%= comment.body %>
                   </blockquote>
                 </td>
+
+                <% if current_user == comment.user %>
+                  <td>
+                    <%= link_to 'Edit', edit_user_photo_comment_path(current_user, @photo, comment), class: 'btn btn-warning btn-xs' %>
+                  </td>
+                <% end %>
               </tr>
           <% end %>
         </table>
