@@ -21,6 +21,28 @@
 </div>
 
 <div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h3>Comments</h3>
+    <hr/>
+
+    <% if @photo.comments.empty? %>
+        <p>No comments.</p>
+    <% else %>
+        <table class="table">
+          <% @photo.comments.each do |comment| %>
+              <%= render partial: comment %>
+          <% end %>
+        </table>
+    <% end %>
+    <p>
+      <%= link_to 'Leave a comment!', new_user_photo_comment_path(current_user, @photo) %>
+    </p>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
   <div class="col-md-12">
     <% if current_user == @user %>
         <%= link_to edit_user_photo_path(@user, @photo) do %>

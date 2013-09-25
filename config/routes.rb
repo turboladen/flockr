@@ -7,7 +7,9 @@ Flockr::Application.routes.draw do
   delete '/sign_out' => 'sessions#destroy'
 
   resources :users do
-    resources :photos
+    resources :photos do
+      resources :comments, only: %i[new create edit update destroy]
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
