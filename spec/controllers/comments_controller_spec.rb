@@ -3,6 +3,7 @@ require 'spec_helper'
 describe CommentsController do
   fixtures :users
   fixtures :photos
+  fixtures :comments
 
   let(:valid_attributes) do
     { body: 'The comment body.' }
@@ -66,6 +67,23 @@ describe CommentsController do
   end
 
   describe "GET 'destroy'" do
-    pending 'Implementation of #destroy'
+    let(:comment) do
+      comments(:one)
+    end
+
+    describe 'DELETE destroy' do
+      it 'destroys the requested comment' do
+        expect {
+          delete :destroy, { id: comment.to_param, user_id: user.to_param, photo_id: photo.to_param },
+            valid_session
+        }.to change(Comment, :count).by(-1)
+      end
+
+      it 'redirects to the photo' do
+        delete :destroy, { id: comment.to_param, user_id: user.to_param, photo_id: photo.to_param },
+          valid_session
+        response.should redirect_to(user_photo_url(user, photo))
+      end
+    end
   end
 end

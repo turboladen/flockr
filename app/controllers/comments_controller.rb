@@ -43,6 +43,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    comment = Comment.find(params[:id])
+    comment.destroy
+
+    respond_to do |format|
+      format.html { redirect_to user_photo_url(@user, @photo) }
+      format.json { head :no_content }
+    end
   end
 
   private
