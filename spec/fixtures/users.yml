@@ -1,0 +1,9 @@
+admin:
+  username: admin
+  email: admin@flockr.com
+  password_digest: <%= BCrypt::Password.create('password') %>
+
+guy:
+  username: guy
+  email: guy@smiley.com
+  password_digest: <%= BCrypt::Password.create('password') %>

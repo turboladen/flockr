@@ -19,6 +19,7 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe UsersController do
+  fixtures :users
 
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
@@ -36,12 +37,12 @@ describe UsersController do
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-  let(:user) { User.create! valid_attributes }
+  let(:user) { users(:guy) }
 
   describe 'GET index' do
     it 'assigns all users as @users' do
       get :index, {}, valid_session
-      assigns(:users).should eq([user])
+      assigns(:users).should eq([users(:admin), users(:guy)])
     end
   end
 
@@ -150,8 +151,6 @@ describe UsersController do
   end
 
   describe 'DELETE destroy' do
-    before { user }
-
     it 'destroys the requested user' do
       expect {
         delete :destroy, { id: user.to_param }, valid_session
