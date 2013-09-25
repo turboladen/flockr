@@ -1,4 +1,4 @@
-<%= form_for(comment, url: user_photo_comments_path(user, photo), html: { mulitpart: true, role: 'form' }) do |f| %>
+<%= form_for(comment, url: user_photo_comment_path(user, photo, comment), html: { mulitpart: true, role: 'form' }) do |f| %>
     <% if comment.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(comment.errors.count, 'error') %> prohibited this comment from being saved:</h2>
