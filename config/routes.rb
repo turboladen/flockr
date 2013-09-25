@@ -8,7 +8,7 @@ Flockr::Application.routes.draw do
 
   resources :users do
     resources :photos do
-      resources :comments, only: %i[new create edit destroy]
+      resources :comments, only: %i[new create edit update destroy]
     end
   end
 

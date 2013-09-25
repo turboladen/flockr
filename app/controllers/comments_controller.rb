@@ -24,6 +24,24 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit
+    @comment = @photo.comments.find(params[:id])
+  end
+
+  def update
+    @comment = @photo.comments.find(params[:id])
+
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html { redirect_to user_photo_path(@user, @photo), notice: 'Comment was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
   end
 
