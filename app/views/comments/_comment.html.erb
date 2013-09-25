@@ -1,0 +1,22 @@
+<tr>
+  <td>
+    <p class="text-muted">
+      <%= time_ago_in_words(comment.updated_at) %> ago,
+      <span class="label label-<%= %w[default primary success info].sample %>">
+        <%= comment.user.username -%>
+      </span>
+      said:
+    </p>
+
+    <blockquote>
+      <%= comment.body %>
+    </blockquote>
+  </td>
+
+  <% if current_user == comment.user %>
+      <td>
+        <%= link_to 'Edit', edit_user_photo_comment_path(current_user, @photo, comment), class: 'btn btn-warning btn-xs' %>
+        <%= link_to 'Delete', user_photo_comment_path(current_user, @photo, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+      </td>
+  <% end %>
+</tr>
