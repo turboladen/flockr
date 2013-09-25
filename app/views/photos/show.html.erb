@@ -48,6 +48,7 @@
                 <% if current_user == comment.user %>
                   <td>
                     <%= link_to 'Edit', edit_user_photo_comment_path(current_user, @photo, comment), class: 'btn btn-warning btn-xs' %>
+                    <%= link_to 'Delete', user_photo_comment_path(current_user, @photo, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
                   </td>
                 <% end %>
               </tr>

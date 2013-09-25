@@ -55,6 +55,42 @@ describe 'photos/show' do
       rendered.should match %r[First comment]
       rendered.should match %r[Second comment]
     end
+
+    context 'current user left the comment' do
+      before do
+        view.stub(:current_user).and_return user
+      end
+
+      it 'has an edit link on the comment' do
+        render
+
+        rendered.should have_link 'Edit', edit_user_photo_comment_path(user, photo, comments.first)
+      end
+
+      it 'has an delete link on the comment' do
+        render
+
+        rendered.should have_link 'Delete', user_photo_comment_path(user, photo, comments.first)
+      end
+    end
+
+    context 'current user did not leave the comment' do
+      before do
+        view.stub(:current_user).and_return 'not the user'
+      end
+
+      it 'has an edit link on the comment' do
+        render
+
+        rendered.should_not have_link 'Edit', edit_user_photo_comment_path(user, photo, comments.first)
+      end
+
+      it 'has an delete link on the comment' do
+        render
+
+        rendered.should_not have_link 'Delete', user_photo_comment_path(user, photo, comments.first)
+      end
+    end
   end
 
   it 'includes a link to leave a comment' do
