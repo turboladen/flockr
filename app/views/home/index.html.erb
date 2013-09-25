@@ -4,3 +4,41 @@
     We have the photos.
   </p>
 </div>
+
+<div class="row table-responsive">
+  <div class="col-md-12">
+
+    <table class="table table-condensed">
+      <tr>
+        <% @photos.first(4).each do |photo| %>
+            <td>
+              <p>
+                <%= link_to (image_tag(photo.image_url(:thumb), class: 'img-rounded img-thumbnail')), user_photo_path(photo.user, photo) %>
+              </p>
+              <p>
+                <%= link_to photo.file_name, user_photo_path(photo.user, photo) %>
+              </p>
+            </td>
+        <% end %>
+      </tr>
+
+      <tr>
+        <% @photos.last(4).each do |photo| %>
+            <td>
+              <p>
+                <%= link_to (image_tag(photo.image_url(:thumb), class: 'img-rounded img-thumbnail')), user_photo_path(photo.user, photo) %>
+              </p>
+              <p>
+                <%= link_to photo.file_name, user_photo_path(photo.user, photo) %>
+              </p>
+            </td>
+        <% end %>
+      </tr>
+    </table>
+
+    <div class="pull-right">
+      <%= paginate @photos %>
+    </div>
+  </div>
+</div>
+
