@@ -8,7 +8,8 @@ set :user, 'deploy'
 set :domain, 'flockr.com'
 set :application, 'flockr'
 
-set :repository,  'git@github.com:turboladen/flockr.git'
+set :repository, 'git@github.com:turboladen/flockr.git'
+set :branch, 'add_capistrano'
 set :deploy_to, "/opt/nginx/html/#{application}"
 
 set :deploy_via, :remote_cache
