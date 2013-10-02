@@ -22,6 +22,15 @@ set :rails_env, 'production'
 set :ruby_version,  "2.0"
 set :bundle_cmd,    "chruby-exec #{ruby_version} -- bundle"
 
+# Passenger
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
+
 # default_run_options[:pty] = true
 
 # if you want to clean up old releases on each deploy uncomment this:
