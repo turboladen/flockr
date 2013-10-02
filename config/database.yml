@@ -24,8 +24,8 @@ production:
   encoding: unicode
   pool: 5
   timeout: 5000
-  user: postgres
+  user: deploy
   # You definitely don't actually want to save your password in this file
   # like this.  There are many approaches to this--google to see what fits
   # your situation/likings: "rails production database.yml password".
-  password: password
+  password:
