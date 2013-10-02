@@ -19,6 +19,7 @@ test:
   timeout: 5000
 
 production:
+  database: flockr_production
   adapter: postgresql
   encoding: unicode
   pool: 5
