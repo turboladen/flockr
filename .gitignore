@@ -18,3 +18,4 @@ pickle-email-*.html
 atlassian-ide-plugin.xml
 
 public/uploads
+.vagrant/
