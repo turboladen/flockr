@@ -12,6 +12,26 @@ Flockr::Application.routes.draw do
     end
   end
 
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :users, except: %i[new edit] do
+        resources :photos, except: %i[index new edit] do
+          resources :comments, only: %i[create show update destroy]
+        end
+      end
+
+      match '*foo', via: :all, constraints: { format: :json }, to: lambda { |env|
+        # env here is the Rack env hash that contains all kinds of fun info.
+        error = {
+          'error' => "Route for '#{env['REQUEST_METHOD']} #{env['REQUEST_URI']}' not found"
+        }
+
+        # Notice that this is a return value in the format that Rack wants...
+        [404, {}, [error.to_json]]
+      }
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
