@@ -55,7 +55,7 @@ describe Api::V1::PhotosController do
         assigns(:photo).should be_persisted
       end
 
-      it 'returns a 201 with the created user as JSON' do
+      it 'returns a 201 with the created photo as JSON' do
         post :create, {
           photo: valid_attributes, user_id: user.to_param, format: :json
         }
