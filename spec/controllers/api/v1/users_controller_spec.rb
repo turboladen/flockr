@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::UsersController do
+  render_views
   fixtures :users
 
   # This should return the minimal set of attributes required to create a valid
@@ -22,14 +23,14 @@ describe Api::V1::UsersController do
 
   describe 'GET index' do
     it 'assigns all users as @users' do
-      get :index
+      get :index, format: :json
       assigns(:users).should eq([users(:admin), users(:guy)])
     end
   end
 
   describe 'GET show' do
     it 'assigns the requested user as @user' do
-      get :show, { id: user.to_param }
+      get :show, { id: user.to_param, format: :json }
       assigns(:user).should eq(user)
     end
   end
@@ -38,21 +39,27 @@ describe Api::V1::UsersController do
     describe 'with valid params' do
       it 'creates a new User' do
         expect {
-          post :create, { user: valid_attributes }
+          post :create, { user: valid_attributes, format: :json }
         }.to change(User, :count).by(1)
       end
 
       it 'assigns a newly created user as @user' do
-        post :create, { user: valid_attributes }
+        post :create, { user: valid_attributes, format: :json }
         assigns(:user).should be_a(User)
         assigns(:user).should be_persisted
       end
 
       it 'returns a 201 with the created user as JSON' do
-        post :create, { user: valid_attributes }
+        post :create, { user: valid_attributes, format: :json }
         response.status.should == 201
         body = JSON(response.body)
         body['email'].should == valid_attributes[:email].downcase
+      end
+
+      it 'sets the Location header to the API location for the new user' do
+        post :create, { user: valid_attributes, format: :json }
+        response.status.should == 201
+        response.location.should == api_v1_user_url(User.last)
       end
     end
 
@@ -61,7 +68,7 @@ describe Api::V1::UsersController do
         # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
         post :create, { user: {
-          email: 'invalid value', username: 'invalid_value'
+          email: 'invalid value', username: 'invalid_value', format: :json
         }}
         assigns(:user).should be_a_new(User)
       end
@@ -71,7 +78,7 @@ describe Api::V1::UsersController do
         User.any_instance.stub(:save).and_return(false)
         post :create, {
           user: {
-            email: 'invalid value', username: 'invalid_value'
+            email: 'invalid value', username: 'invalid_value', format: :json
           }
         }
         response.status.should == 422
@@ -92,12 +99,12 @@ describe Api::V1::UsersController do
       end
 
       it 'assigns the requested user as @user' do
-        put :update, { id: user.to_param, user: valid_attributes }
+        put :update, { id: user.to_param, user: valid_attributes, format: :json }
         assigns(:user).should eq(user)
       end
 
       it 'returns a 204 with and empty body' do
-        put :update, { id: user.to_param, user: valid_attributes }
+        put :update, { id: user.to_param, user: valid_attributes, format: :json }
         response.status.should == 204
         response.body.should be_empty
       end
@@ -107,7 +114,7 @@ describe Api::V1::UsersController do
       before do
         # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
-        put :update, { id: user.to_param, user: { email: 'invalid value' } }
+        put :update, { id: user.to_param, user: { email: 'invalid value' }, format: :json }
       end
 
       it 'assigns the user as @user' do
@@ -124,12 +131,12 @@ describe Api::V1::UsersController do
   describe 'DELETE destroy' do
     it 'destroys the requested user' do
       expect {
-        delete :destroy, { id: user.to_param }
+        delete :destroy, { id: user.to_param, format: :json }
       }.to change(User, :count).by(-1)
     end
 
     it 'returns a 204 with an empty body' do
-      delete :destroy, { id: user.to_param }
+      delete :destroy, { id: user.to_param, format: :json }
       response.status.should == 204
       response.body.should be_empty
     end
