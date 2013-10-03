@@ -19,7 +19,13 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  database: flockr_production
+  adapter: postgresql
+  encoding: unicode
   pool: 5
   timeout: 5000
+  user: deploy
+  # You definitely don't actually want to save your password in this file
+  # like this.  There are many approaches to this--google to see what fits
+  # your situation/likings: "rails production database.yml password".
+  password:
