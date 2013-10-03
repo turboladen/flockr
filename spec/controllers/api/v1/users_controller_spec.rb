@@ -29,9 +29,16 @@ describe Api::V1::UsersController do
   end
 
   describe 'GET show' do
-    it 'assigns the requested user as @user' do
+    before do
       get :show, { id: user.to_param, format: :json }
+    end
+
+    it 'assigns the requested user as @user' do
       assigns(:user).should eq(user)
+    end
+
+    it 'returns a list of photos' do
+      JSON(response.body).should include 'photos'
     end
   end
 

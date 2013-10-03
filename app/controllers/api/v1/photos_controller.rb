@@ -2,10 +2,6 @@ class Api::V1::PhotosController < ApiController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
   before_action :set_user
 
-  # GET /photos.json
-  def index
-  end
-
   # GET /photos/1.json
   def show
   end

@@ -23,13 +23,6 @@ describe Api::V1::PhotosController do
 
   let(:photo) { photos(:one) }
 
-  describe 'GET index' do
-    it 'assigns all photos as @photos' do
-      get :index, { user_id: user.to_param, format: :json }
-      assigns(:user).should eq(user)
-    end
-  end
-
   describe 'GET show' do
     it 'assigns the requested photo as @photo' do
       get :show, { id: photo.to_param, user_id: user.to_param, format: :json }
