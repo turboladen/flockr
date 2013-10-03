@@ -1,6 +1,5 @@
 class Api::V1::UsersController < ApiController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  respond_to :json
 
   # GET /users.json
   def index

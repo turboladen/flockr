@@ -1,8 +1,7 @@
-class Api::V1::CommentsController < ApplicationController
+class Api::V1::CommentsController < ApiController
   before_action :set_user
   before_action :set_photo
   before_action :set_comment, only: %i[show update]
-  respond_to :json
 
   def create
     params_with_user = comment_params.merge(user: @user)
