@@ -103,7 +103,7 @@ describe Api::V1::UsersController do
         assigns(:user).should eq(user)
       end
 
-      it 'returns a 204 with and empty body' do
+      it 'returns a 204 with an empty body' do
         put :update, { id: user.to_param, user: valid_attributes, format: :json }
         response.status.should == 204
         response.body.should be_empty

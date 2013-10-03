@@ -1,50 +1,40 @@
-class PhotosController < ApplicationController
+class Api::V1::PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
   before_action :set_user
-  respond_to :html
+  respond_to :json
 
-  # GET /photos
+  # GET /photos.json
   def index
-    redirect_to user_path(@user)
   end
 
-  # GET /photos/1
+  # GET /photos/1.json
   def show
   end
 
-  # GET /photos/new
-  def new
-    @photo = @user.photos.new
-  end
-
-  # GET /photos/1/edit
-  def edit
-  end
-
-  # POST /photos
+  # POST /photos.json
   def create
     @photo = @user.photos.new(photo_params)
 
     if @photo.save
-      redirect_to user_photo_path(@user, @photo), notice: 'Photo was successfully created.'
+      render action: 'show', status: :created, location: api_v1_user_photo_url(@photo.user, @photo)
     else
-      render action: 'new'
+      render json: @photo.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /photos/1
+  # PATCH/PUT /photos/1.json
   def update
     if @photo.update(photo_params)
-      redirect_to user_photo_path(@user, @photo), notice: 'Photo was successfully updated.'
+      head :no_content
     else
-      render action: 'edit'
+      render json: @photo.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /photos/1
+  # DELETE /photos/1.json
   def destroy
     @photo.destroy
-    redirect_to user_photos_url(@user)
+    head :no_content
   end
 
   private

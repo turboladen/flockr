@@ -14,7 +14,9 @@ Flockr::Application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :users, except: %i[new edit]
+      resources :users, except: %i[new edit] do
+        resources :photos, except: %i[new edit]
+      end
     end
   end
 
